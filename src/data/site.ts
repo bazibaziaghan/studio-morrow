@@ -49,6 +49,8 @@ export const projects: Project[] = [
   { client: 'Vessel & Co', title: 'Packaging for a ceramics collection', discipline: 'Packaging', year: '2025', image: '/images/work-4.webp' },
   { client: 'Sable Records', title: 'A visual language for a label', discipline: 'Identity', year: '2025', image: '/images/work-5.webp' },
   { client: 'Fenn Atelier', title: 'Ecommerce and editorial site', discipline: 'Digital', year: '2024', image: '/images/work-6.webp' },
+  { client: 'Casa Tamar', title: 'Opening campaign for a coastal hotel', discipline: 'Art direction', year: '2024', image: '/images/work-7.webp' },
+  { client: 'Noor Parfums', title: 'Bottle, box and launch film', discipline: 'Packaging', year: '2024', image: '/images/work-8.webp' },
 ];
 
 export const feature = {

@@ -119,14 +119,21 @@ const images = {
   'work-4.webp': scene({ w: 1200, h: 1500, seed: 24, base: '#6b5640', glow: [0.2, 0.2], shapes: arch(330, 300, 540, 1200, C.oxblood) }),
   'work-5.webp': scene({ w: 1200, h: 1500, seed: 25, base: C.wine, glow: [0.8, 0.3], beam: false, shapes: fabric(1200, 1500, C.oxblood, 25) }),
   'work-6.webp': scene({ w: 1200, h: 1500, seed: 26, base: '#2f251c', glow: [0.6, 0.15], shapes: box(200, 560, 520, 520, 12, C.brown) + vessel(760, 600, 200, 620) }),
+  'work-7.webp': scene({ w: 1200, h: 1500, seed: 27, base: '#4a3a2a', glow: [0.35, 0.2], beam: false, shapes: arch(250, 420, 360, 1080, C.wine) + arch(650, 620, 300, 880, C.oxblood) }),
+  'work-8.webp': scene({ w: 1200, h: 1500, seed: 28, base: C.oxblood, glow: [0.25, 0.25], shapes: orb(420, 640, 200, C.brown) + vessel(700, 560, 220, 700) }),
+  'studio-2.webp': scene({ w: 1400, h: 1750, seed: 14, base: C.umber, glow: [0.7, 0.2], shapes: box(280, 620, 840, 640, -6, C.oxblood) + vessel(820, 760, 170, 520) }),
 };
 
+// `npm run images -- work-7.webp` regenerates just the named files.
+const only = process.argv.slice(2);
 for (const [name, svg] of Object.entries(images)) {
+  if (only.length && !only.includes(name)) continue;
   await sharp(Buffer.from(svg)).webp({ quality: 70 }).toFile(new URL(name, OUT).pathname.replace(/^\/([A-Za-z]:)/, '$1'));
   console.log('made', name);
 }
 
 // Social preview image
+if (only.length) process.exit(0);
 const og = scene({ w: 1200, h: 630, seed: 31, base: '#3a2e25', glow: [0.7, 0.2], shapes: box(560, 90, 520, 380, -12, C.oxblood) });
 await sharp(Buffer.from(og.replace('</svg>', `<text x="80" y="330" font-family="Georgia, serif" font-size="96" font-weight="300" fill="${C.cream}">Morrow</text><text x="84" y="390" font-family="Arial, sans-serif" font-size="22" letter-spacing="6" fill="${C.cream}" fill-opacity="0.8">BRAND &amp; CONTENT STUDIO</text></svg>`)))
   .png()

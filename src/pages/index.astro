@@ -23,14 +23,14 @@ import { site, hero, intro, projects, feature, services, approach, commission, t
 
   <!-- Selected work -->
   <section id="work" class="pb-24 md:pb-36" aria-labelledby="work-title">
-    <div class="wrap max-w-[58rem]">
+    <div class="wrap">
       <div class="flex items-end justify-between gap-6 border-b border-line pb-5" data-reveal>
         <h2 id="work-title" class="title text-xl md:text-2xl">Selected work</h2>
         <p class="label text-ink/60">{projects.length} projects</p>
       </div>
-      <ul class="mt-10 grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+      <ul class="mt-10 grid grid-cols-2 gap-x-4 gap-y-10 md:gap-x-6 md:gap-y-14 lg:grid-cols-4">
         {projects.map((p, i) => (
-          <li data-reveal style={`transition-delay:${(i % 3) * 90}ms`}>
+          <li data-reveal style={`transition-delay:${(i % 4) * 90}ms`}>
             <a href="#contact" class="work-card group block">
               <div class="overflow-hidden aspect-[4/5] bg-brown">
                 <img src={p.image} alt={`${p.client}: ${p.title}`} loading="lazy" decoding="async" width="1200" height="1500" class="w-full h-full object-cover" />
@@ -77,11 +77,14 @@ import { site, hero, intro, projects, feature, services, approach, commission, t
 
   <!-- Studio / split panel -->
   <section id="studio" class="bg-cream-2 py-24 md:py-32" aria-labelledby="studio-title">
-    <div class="wrap max-w-[64rem] grid gap-12 md:grid-cols-[minmax(0,22rem)_1fr] md:gap-16 lg:gap-24 items-center">
-    <div class="overflow-hidden aspect-[4/5] w-full max-w-[22rem] mx-auto md:mx-0 bg-brown" data-reveal>
+    <div class="wrap grid gap-x-6 gap-y-12 grid-cols-2 lg:grid-cols-[1fr_1fr_1.35fr] lg:gap-x-6 items-center">
+    <div class="overflow-hidden aspect-[4/5] bg-brown" data-reveal>
       <img src="/images/studio.webp" alt="The studio's workroom in soft afternoon light" loading="lazy" decoding="async" width="1400" height="1750" class="w-full h-full object-cover" />
     </div>
-    <div class="flex items-center">
+    <div class="overflow-hidden aspect-[4/5] bg-brown" data-reveal style="transition-delay:90ms">
+      <img src="/images/studio-2.webp" alt="Samples and packaging laid out on the studio table" loading="lazy" decoding="async" width="1400" height="1750" class="w-full h-full object-cover" />
+    </div>
+    <div class="col-span-2 lg:col-span-1 flex items-center lg:pl-10 xl:pl-16">
       <div class="max-w-xl" data-reveal>
         <p class="label text-oxblood">{site.city}</p>
         <h2 id="studio-title" class="title text-3xl md:text-4xl mt-5">Small on purpose</h2>
