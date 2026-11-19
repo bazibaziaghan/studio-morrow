@@ -109,9 +109,10 @@ const images = {
     w: 1600, h: 1400, seed: 11, base: C.wine, glow: [0.3, 0.3], beam: false,
     shapes: fabric(1600, 1400, C.oxblood, 11) + box(560, 420, 520, 520, 6, C.brown),
   }),
+  // Landscape 5:4: a doorway, a case and a vessel on the studio table.
   'studio.webp': scene({
-    w: 1400, h: 1750, seed: 13, base: '#5a4733', glow: [0.25, 0.15],
-    shapes: arch(380, 380, 640, 1370, '#3a2a1c') + orb(980, 1420, 150, C.oxblood),
+    w: 2000, h: 1600, seed: 13, base: '#5a4733', glow: [0.2, 0.15],
+    shapes: arch(300, 330, 560, 1270, '#3a2a1c') + box(980, 820, 640, 480, -5, C.oxblood) + vessel(1700, 860, 130, 420) + orb(760, 1400, 120, C.wine),
   }),
   'work-1.webp': scene({ w: 1200, h: 1500, seed: 21, base: C.oxblood, glow: [0.7, 0.2], shapes: vessel(470, 520, 260, 760) }),
   'work-2.webp': scene({ w: 1200, h: 1500, seed: 22, base: '#3d3024', glow: [0.3, 0.25], shapes: box(260, 380, 700, 840, -9, C.oxblood) }),
@@ -121,7 +122,6 @@ const images = {
   'work-6.webp': scene({ w: 1200, h: 1500, seed: 26, base: '#2f251c', glow: [0.6, 0.15], shapes: box(200, 560, 520, 520, 12, C.brown) + vessel(760, 600, 200, 620) }),
   'work-7.webp': scene({ w: 1200, h: 1500, seed: 27, base: '#4a3a2a', glow: [0.35, 0.2], beam: false, shapes: arch(250, 420, 360, 1080, C.wine) + arch(650, 620, 300, 880, C.oxblood) }),
   'work-8.webp': scene({ w: 1200, h: 1500, seed: 28, base: C.oxblood, glow: [0.25, 0.25], shapes: orb(420, 640, 200, C.brown) + vessel(700, 560, 220, 700) }),
-  'studio-2.webp': scene({ w: 1400, h: 1750, seed: 14, base: C.umber, glow: [0.7, 0.2], shapes: box(280, 620, 840, 640, -6, C.oxblood) + vessel(820, 760, 170, 520) }),
 };
 
 // `npm run images -- work-7.webp` regenerates just the named files.
