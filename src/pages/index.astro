@@ -1,0 +1,174 @@
+---
+import Base from '../layouts/Base.astro';
+import { site, hero, intro, projects, feature, services, approach, commission, testimonial, contact } from '../data/site';
+---
+<Base>
+  <!-- Hero: full-bleed image, centred uppercase statement -->
+  <section class="relative h-[calc(100svh-var(--bar-h))] min-h-[34rem] overflow-hidden bg-umber text-cream shade" data-hero>
+    <img src="/images/hero.webp" alt="" class="hero-img absolute inset-0 w-full h-full object-cover" width="2400" height="1500" fetchpriority="high" />
+    <div class="relative z-10 h-full wrap flex flex-col items-center justify-end text-center pb-[12vh] hero-in">
+      <p class="label">{hero.eyebrow}</p>
+      <h1 class="display mt-5">{hero.title}</h1>
+      <a href={hero.cta.href} class="btn btn-light mt-9">{hero.cta.label}</a>
+    </div>
+  </section>
+
+  <!-- Intro -->
+  <section class="py-24 md:py-36">
+    <div class="wrap max-w-3xl text-center" data-reveal>
+      <h2 class="title text-2xl md:text-3xl">{intro.title}</h2>
+      <p class="mt-8 text-lg md:text-xl leading-relaxed text-ink/80">{intro.body}</p>
+    </div>
+  </section>
+
+  <!-- Selected work -->
+  <section id="work" class="pb-24 md:pb-36" aria-labelledby="work-title">
+    <div class="wrap">
+      <div class="flex items-end justify-between gap-6 border-b border-line pb-5" data-reveal>
+        <h2 id="work-title" class="title text-xl md:text-2xl">Selected work</h2>
+        <p class="label text-ink/60">{projects.length} projects</p>
+      </div>
+      <ul class="mt-10 grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+        {projects.map((p, i) => (
+          <li data-reveal style={`transition-delay:${(i % 3) * 90}ms`}>
+            <a href="#contact" class="work-card group block">
+              <div class="overflow-hidden aspect-[4/5] bg-brown">
+                <img src={p.image} alt={`${p.client}: ${p.title}`} loading="lazy" decoding="async" width="1200" height="1500" class="w-full h-full object-cover" />
+              </div>
+              <div class="mt-5 flex items-baseline justify-between gap-4">
+                <p class="label">{p.client}</p>
+                <p class="label text-ink/55">{p.year}</p>
+              </div>
+              <p class="mt-2 text-ink/75">{p.title}</p>
+              <p class="mt-1 text-sm text-ink/55">{p.discipline}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Feature panel -->
+  <section class="relative min-h-[88svh] overflow-hidden bg-umber text-cream shade flex items-end" aria-labelledby="feature-title">
+    <img src="/images/feature.webp" alt="" loading="lazy" decoding="async" width="2400" height="1300" class="absolute inset-0 w-full h-full object-cover" />
+    <div class="relative z-10 wrap text-center pb-20 md:pb-28" data-reveal>
+      <p class="label opacity-80">{feature.eyebrow}</p>
+      <h2 id="feature-title" class="title text-3xl md:text-5xl mt-4">{feature.title}</h2>
+      <p class="mt-6 max-w-md mx-auto text-cream/85">{feature.body}</p>
+      <a href={feature.cta.href} class="btn btn-light mt-8">{feature.cta.label}</a>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="py-24 md:py-36" aria-labelledby="services-title">
+    <div class="wrap">
+      <h2 id="services-title" class="title text-2xl md:text-3xl text-center" data-reveal>Services</h2>
+      <ol class="mt-14 md:mt-20 grid gap-px bg-line border border-line sm:grid-cols-2 lg:grid-cols-4">
+        {services.map((s, i) => (
+          <li class="bg-cream p-8 md:p-10 min-h-[17rem] flex flex-col" data-reveal style={`transition-delay:${i * 90}ms`}>
+            <span class="label text-oxblood">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="title text-lg mt-auto pt-16">{s.title}</h3>
+            <p class="mt-3 text-ink/70">{s.body}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Studio / split panel -->
+  <section id="studio" class="grid lg:grid-cols-2 bg-cream-2" aria-labelledby="studio-title">
+    <div class="relative min-h-[70svh] lg:min-h-[52rem] overflow-hidden">
+      <img src="/images/studio.webp" alt="The studio's workroom in soft afternoon light" loading="lazy" decoding="async" width="1400" height="1750" class="absolute inset-0 w-full h-full object-cover" />
+    </div>
+    <div class="flex items-center">
+      <div class="px-6 py-20 md:px-16 lg:px-24 max-w-2xl" data-reveal>
+        <p class="label text-oxblood">{site.city}</p>
+        <h2 id="studio-title" class="title text-3xl md:text-4xl mt-5">Small on purpose</h2>
+        <p class="mt-8 text-lg leading-relaxed text-ink/80">Six people, two rooms, one table. Staying small means the people who pitch your project are the ones who design it, shoot it and see it through to launch.</p>
+        <p class="mt-5 text-ink/70">We work with founders and in-house teams across fashion, beauty, hospitality and design, usually for a year or more.</p>
+        <dl class="mt-12 grid grid-cols-3 gap-6 border-t border-line pt-8">
+          <div><dt class="label text-ink/55">Founded</dt><dd class="title text-2xl mt-2">2017</dd></div>
+          <div><dt class="label text-ink/55">Projects</dt><dd class="title text-2xl mt-2">84</dd></div>
+          <div><dt class="label text-ink/55">Per season</dt><dd class="title text-2xl mt-2">2</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- Approach -->
+  <section id="approach" class="py-24 md:py-36" aria-labelledby="approach-title">
+    <div class="wrap">
+      <h2 id="approach-title" class="title text-2xl md:text-3xl text-center" data-reveal>Approach</h2>
+      <ol class="mt-14 md:mt-20 grid gap-12 md:grid-cols-3 md:gap-10">
+        {approach.map((a, i) => (
+          <li class="border-t border-ink pt-6" data-reveal style={`transition-delay:${i * 90}ms`}>
+            <div class="flex items-baseline gap-4">
+              <span class="label text-ink/55">{String(i + 1).padStart(2, '0')}</span>
+              <h3 class="title text-xl">{a.step}</h3>
+            </div>
+            <p class="mt-5 text-ink/75 max-w-sm">{a.body}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Commission panel: image with caption bottom-left, action bottom-right -->
+  <section class="relative min-h-[80svh] overflow-hidden bg-oxblood-deep text-cream shade flex items-end" aria-labelledby="commission-title">
+    <img src="/images/commission.webp" alt="" loading="lazy" decoding="async" width="1600" height="1400" class="absolute inset-0 w-full h-full object-cover" />
+    <div class="relative z-10 wrap pb-14 md:pb-20 grid gap-8 md:grid-cols-[1fr_minmax(0,26rem)_auto] md:items-end" data-reveal>
+      <h2 id="commission-title" class="title text-3xl md:text-5xl">{commission.title}</h2>
+      <p class="text-cream/85">{commission.body}</p>
+      <a href={commission.cta.href} class="btn btn-light justify-self-start">{commission.cta.label}</a>
+    </div>
+  </section>
+
+  <!-- Testimonial -->
+  <section class="py-24 md:py-36" aria-label="Client words">
+    <figure class="wrap max-w-4xl text-center" data-reveal>
+      <blockquote class="wordmark text-3xl md:text-5xl leading-[1.15]">“{testimonial.quote}”</blockquote>
+      <figcaption class="mt-10 label">{testimonial.name} <span class="text-ink/55">· {testimonial.role}</span></figcaption>
+    </figure>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="bg-cream-2 py-24 md:py-36 border-t border-line" aria-labelledby="contact-title">
+    <div class="wrap grid gap-14 lg:grid-cols-2">
+      <div data-reveal>
+        <h2 id="contact-title" class="title text-3xl md:text-4xl max-w-md">{contact.title}</h2>
+        <p class="mt-6 max-w-md text-ink/75">{contact.body}</p>
+        <dl class="mt-12 space-y-6">
+          <div><dt class="label text-ink/55">Email</dt><dd class="mt-1"><a href={`mailto:${site.email}`} class="text-lg link-line">{site.email}</a></dd></div>
+          <div><dt class="label text-ink/55">Studios</dt><dd class="mt-1 text-lg">{site.city}</dd></div>
+        </dl>
+      </div>
+      <form class="grid gap-2" data-reveal data-contact>
+        <label class="sr-only" for="c-name">Name</label>
+        <input id="c-name" name="name" class="field" placeholder="Name" autocomplete="name" required />
+        <label class="sr-only" for="c-email">Email</label>
+        <input id="c-email" name="email" type="email" class="field" placeholder="Email" autocomplete="email" required />
+        <label class="sr-only" for="c-company">Company</label>
+        <input id="c-company" name="company" class="field" placeholder="Company or brand" autocomplete="organization" />
+        <label class="sr-only" for="c-msg">Project</label>
+        <textarea id="c-msg" name="message" rows="4" class="field resize-none" placeholder="What are you working on?" required></textarea>
+        <div class="mt-8 flex flex-wrap items-center gap-6">
+          <button type="submit" class="btn btn-solid">Send enquiry</button>
+          <p class="text-sm text-ink/55">Opens your email app with your note filled in.</p>
+        </div>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import { site } from '../data/site';
+  // No backend needed: the form composes an email in the visitor's mail app.
+  const form = document.querySelector<HTMLFormElement>('[data-contact]');
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const d = new FormData(form);
+    const subject = `Project enquiry from ${d.get('name')}${d.get('company') ? `, ${d.get('company')}` : ''}`;
+    const body = `${d.get('message')}\n\n${d.get('name')}\n${d.get('email')}`;
+    location.href = `mailto:${site.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  });
+</script>

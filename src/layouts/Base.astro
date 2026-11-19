@@ -1,0 +1,135 @@
+---
+import '../styles/global.css';
+import { site } from '../data/site';
+
+interface Props { title?: string; description?: string }
+const { title = `${site.legalName} | ${site.tagline}`, description = site.description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, site.url).href;
+const year = new Date().getFullYear();
+// Repeat the announcement so the marquee loops seamlessly.
+const ticker = [...site.announcement, ...site.announcement, ...site.announcement];
+---
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#6e1c20" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL('/og.png', site.url).href} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script is:inline>document.documentElement.classList.remove('no-js')</script>
+  </head>
+  <body>
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-cream focus:px-4 focus:py-2 label">Skip to content</a>
+
+    <!-- Announcement bar -->
+    <div class="marquee bg-oxblood text-cream h-[var(--bar-h)] flex items-center" aria-label="Announcements">
+      <div class="marquee-track" aria-hidden="true">
+        {[0, 1].map(() => ticker.map((t) => <span class="label px-10 whitespace-nowrap opacity-90">{t}</span>))}
+      </div>
+      <p class="sr-only">{site.announcement[0]}</p>
+    </div>
+
+    <!-- Header: nav left, wordmark centred, enquiry right -->
+    <header class="site-header sticky top-0 z-50 text-cream" data-header>
+      <div class="wrap grid grid-cols-[1fr_auto_1fr] items-center h-20">
+        <div class="flex items-center gap-8">
+          <button type="button" class="lg:hidden -ml-2 p-2" aria-label="Open menu" aria-expanded="false" aria-controls="menu" data-menu-open>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M3 8h18M3 16h18" /></svg>
+          </button>
+          <nav class="hidden lg:flex gap-8" aria-label="Main">
+            {site.nav.slice(0, 4).map((n) => <a href={n.href} class="label link-line pb-0.5">{n.label}</a>)}
+          </nav>
+        </div>
+        <a href="/" class="wordmark text-[2.1rem] md:text-[2.6rem]" aria-label={`${site.legalName}, home`}>{site.name}</a>
+        <div class="flex justify-end">
+          <a href="#contact" class="label link-line pb-0.5">Enquire</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Mobile menu -->
+    <div id="menu" class="fixed inset-0 z-[60] bg-umber text-cream hidden flex-col" role="dialog" aria-modal="true" aria-label="Menu" data-menu>
+      <div class="wrap flex items-center justify-between h-20 mt-[var(--bar-h)]">
+        <span class="wordmark text-[2.1rem]">{site.name}</span>
+        <button type="button" class="p-2 -mr-2" aria-label="Close menu" data-menu-close>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" /></svg>
+        </button>
+      </div>
+      <nav class="wrap flex flex-col gap-6 mt-12" aria-label="Mobile">
+        {site.nav.map((n) => <a href={n.href} class="title text-3xl" data-menu-link>{n.label}</a>)}
+      </nav>
+      <p class="wrap mt-auto mb-10 label opacity-70">{site.email}</p>
+    </div>
+
+    <main id="main" class="-mt-20">
+      <slot />
+    </main>
+
+    <footer class="bg-umber text-cream">
+      <div class="wrap pt-20 pb-10">
+        <div class="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+          <div>
+            <p class="wordmark text-5xl">{site.name}</p>
+            <p class="mt-5 max-w-xs text-cream/70">{site.tagline}. {site.city}.</p>
+          </div>
+          <div>
+            <p class="label text-cream/60">Studio</p>
+            <ul class="mt-5 space-y-2.5">{site.nav.map((n) => <li><a href={n.href} class="link-line">{n.label}</a></li>)}</ul>
+          </div>
+          <div>
+            <p class="label text-cream/60">Follow</p>
+            <ul class="mt-5 space-y-2.5">{site.social.map((s) => <li><a href={s.href} class="link-line" rel="noopener" target="_blank">{s.label}</a></li>)}</ul>
+          </div>
+          <div>
+            <p class="label text-cream/60">Write to us</p>
+            <a href={`mailto:${site.email}`} class="mt-5 inline-block link-line">{site.email}</a>
+          </div>
+        </div>
+        <div class="mt-20 pt-6 border-t border-cream/15 flex flex-wrap justify-between gap-4 text-cream/60 text-sm">
+          <p>© {year} {site.legalName}</p>
+          <a href="#main" class="label link-line">Back to top</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Header turns solid once the hero is behind it.
+      const header = document.querySelector<HTMLElement>('[data-header]')!;
+      const hero = document.querySelector('[data-hero]');
+      if (hero) {
+        new IntersectionObserver(([e]) => header.toggleAttribute('data-solid', !e!.isIntersecting), { rootMargin: '-80px 0px 0px 0px' }).observe(hero);
+      } else header.setAttribute('data-solid', '');
+
+      // Scroll reveals
+      const io = new IntersectionObserver(
+        (entries) => entries.forEach((e) => e.isIntersecting && (e.target.classList.add('is-in'), io.unobserve(e.target))),
+        { rootMargin: '0px 0px -8% 0px' },
+      );
+      document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
+
+      // Mobile menu
+      const menu = document.querySelector<HTMLElement>('[data-menu]')!;
+      const openBtn = document.querySelector<HTMLButtonElement>('[data-menu-open]')!;
+      const setMenu = (open: boolean) => {
+        menu.classList.toggle('hidden', !open);
+        menu.classList.toggle('flex', open);
+        document.body.style.overflow = open ? 'hidden' : '';
+        openBtn.setAttribute('aria-expanded', String(open));
+        (open ? menu.querySelector<HTMLElement>('[data-menu-close]') : openBtn)?.focus();
+      };
+      openBtn.addEventListener('click', () => setMenu(true));
+      menu.querySelector('[data-menu-close]')!.addEventListener('click', () => setMenu(false));
+      menu.querySelectorAll('[data-menu-link]').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+      addEventListener('keydown', (e) => e.key === 'Escape' && !menu.classList.contains('hidden') && setMenu(false));
+    </script>
+  </body>
+</html>
