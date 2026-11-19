@@ -23,7 +23,7 @@ import { site, hero, intro, projects, feature, services, approach, commission, t
 
   <!-- Selected work -->
   <section id="work" class="pb-24 md:pb-36" aria-labelledby="work-title">
-    <div class="wrap">
+    <div class="wrap max-w-[58rem]">
       <div class="flex items-end justify-between gap-6 border-b border-line pb-5" data-reveal>
         <h2 id="work-title" class="title text-xl md:text-2xl">Selected work</h2>
         <p class="label text-ink/60">{projects.length} projects</p>
@@ -76,12 +76,13 @@ import { site, hero, intro, projects, feature, services, approach, commission, t
   </section>
 
   <!-- Studio / split panel -->
-  <section id="studio" class="grid lg:grid-cols-2 bg-cream-2" aria-labelledby="studio-title">
-    <div class="relative min-h-[70svh] lg:min-h-[52rem] overflow-hidden">
-      <img src="/images/studio.webp" alt="The studio's workroom in soft afternoon light" loading="lazy" decoding="async" width="1400" height="1750" class="absolute inset-0 w-full h-full object-cover" />
+  <section id="studio" class="bg-cream-2 py-24 md:py-32" aria-labelledby="studio-title">
+    <div class="wrap max-w-[64rem] grid gap-12 md:grid-cols-[minmax(0,22rem)_1fr] md:gap-16 lg:gap-24 items-center">
+    <div class="overflow-hidden aspect-[4/5] w-full max-w-[22rem] mx-auto md:mx-0 bg-brown" data-reveal>
+      <img src="/images/studio.webp" alt="The studio's workroom in soft afternoon light" loading="lazy" decoding="async" width="1400" height="1750" class="w-full h-full object-cover" />
     </div>
     <div class="flex items-center">
-      <div class="px-6 py-20 md:px-16 lg:px-24 max-w-2xl" data-reveal>
+      <div class="max-w-xl" data-reveal>
         <p class="label text-oxblood">{site.city}</p>
         <h2 id="studio-title" class="title text-3xl md:text-4xl mt-5">Small on purpose</h2>
         <p class="mt-8 text-lg leading-relaxed text-ink/80">Six people, two rooms, one table. Staying small means the people who pitch your project are the ones who design it, shoot it and see it through to launch.</p>
@@ -92,6 +93,7 @@ import { site, hero, intro, projects, feature, services, approach, commission, t
           <div><dt class="label text-ink/55">Per season</dt><dd class="title text-2xl mt-2">2</dd></div>
         </dl>
       </div>
+    </div>
     </div>
   </section>
 
